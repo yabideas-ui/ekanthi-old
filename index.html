@@ -15,7 +15,7 @@
   // Old Android app (1.4 or older) cannot open the new address inside the app: ask to update it.
   if (m && older(m[1], "1.5") && !/[?&]app_move=1/.test(location.search)) {
     document.getElementById("c").innerHTML = '<h1>📲 Please update the Ekanthi app</h1><p>Ekanthi has moved to <b>www.ekanthi.in</b>. Download the new app and install it over the old one — your login stays.</p>' +
-      '<p><a class="b" href="' + NEW + '/ekanthi.apk">Download the new app</a><a class="b g" href="' + NEW + '/">Open www.ekanthi.in in Chrome instead</a></p><p style="font-size:13px;opacity:.75">പുതിയ app download ചെയ്ത് install ചെയ്യൂ. Login പോകില്ല.<br>नया app download करके install करें। Login बना रहेगा।</p>';
+      '<p><a class="b" href="https://raw.githubusercontent.com/yabideas-ui/ekanthi/main/ekanthi.apk">Download the new app</a><a class="b g" href="' + NEW + '/">Open www.ekanthi.in in Chrome instead</a></p><p style="font-size:13px;opacity:.75">പുതിയ app download ചെയ്ത് install ചെയ്യൂ. Login പോകില്ല.<br>नया app download करके install करें। Login बना रहेगा।</p>';
     return;
   }
   var data = {}, n = 0;
