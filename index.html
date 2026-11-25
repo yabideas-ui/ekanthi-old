@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ekanthi has moved to www.ekanthi.in</title><meta name="robots" content="noindex">
+<style>body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#0b2239;color:#fff;display:flex;min-height:100vh;align-items:center;justify-content:center;text-align:center}
+.c{max-width:420px;padding:28px}h1{font-size:22px;margin:0 0 10px}p{opacity:.9;line-height:1.5}a.b{display:block;margin:12px 0;padding:14px;border-radius:12px;background:#f5b700;color:#0b2239;font-weight:700;text-decoration:none}a.g{background:transparent;border:1px solid #fff6;color:#fff}</style></head>
+<body><div class="c" id="c"><h1>Ekanthi → www.ekanthi.in</h1><p>Opening the new address…</p><p><a class="b" id="go" href="https://www.ekanthi.in/">Open www.ekanthi.in</a></p></div>
+<script>
+// Old address of Ekanthi. Sends visitors to https://ekanthi.in and carries the saved login with them (in the #hash, which never reaches any server).
+(function(){
+  var NEW = "https://www.ekanthi.in";
+  var ua = navigator.userAgent, m = ua.match(/EkanthiApp\/([\d.]+)/);
+  var q = location.search.replace(/([?&])app_move=1&?/, "$1").replace(/[?&]$/, "");
+  var target = NEW + location.pathname + q;
+  function older(v, w){ v=v.split(".").map(Number); w=w.split(".").map(Number); for(var i=0;i<Math.max(v.length,w.length);i++){ var a=v[i]||0,b=w[i]||0; if(a!==b) return a<b; } return false; }
+  // Old Android app (1.4 or older) cannot open the new address inside the app: ask to update it.
+  if (m && older(m[1], "1.5") && !/[?&]app_move=1/.test(location.search)) {
+    document.getElementById("c").innerHTML = '<h1>📲 Please update the Ekanthi app</h1><p>Ekanthi has moved to <b>www.ekanthi.in</b>. Download the new app and install it over the old one — your login stays.</p>' +
+      '<p><a class="b" href="' + NEW + '/ekanthi.apk">Download the new app</a><a class="b g" href="' + NEW + '/">Open www.ekanthi.in in Chrome instead</a></p><p style="font-size:13px;opacity:.75">പുതിയ app download ചെയ്ത് install ചെയ്യൂ. Login പോകില്ല.<br>नया app download करके install करें। Login बना रहेगा।</p>';
+    return;
+  }
+  var data = {}, n = 0;
+  try { for (var i = 0; i < localStorage.length; i++) { var k = localStorage.key(i), v = localStorage.getItem(k);
+    if (!/^(ekanthi_|ek_)/.test(k) || /^ek_snap_/.test(k) || v == null) continue;
+    if (v.length > 6000 && k !== "ekanthi_token") continue;
+    data[k] = v; n++; } } catch (e) {}
+  var hash = "";
+  if (n && data.ekanthi_token) {
+    data.__ts = String(Date.now());   // the new site accepts only a fresh hand-over
+    try { hash = "#mv=" + btoa(unescape(encodeURIComponent(JSON.stringify(data)))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); } catch (e) {}
+    try { localStorage.clear(); localStorage.setItem("ek_moved_to", NEW); } catch (e) {}   // login now lives on the new address
+  }
+  document.getElementById("go").href = target;
+  location.replace(target + hash);
+})();
+</script></body></html>
